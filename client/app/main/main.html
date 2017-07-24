@@ -1,0 +1,73 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-6">
+      <form class="thing-form">
+        <label>Add new Project</label>
+        <p class="input-group">
+          <input type="text" class="form-control" placeholder="Project Name" ng-model="$ctrl.newProject.name">
+        <div class="row">
+          <span class="col-md-6">
+            <button type="submit" class="btn btn-success" ng-click="$ctrl.addProject()">
+              Create Project
+            </button>
+          </span>
+        </div>
+        </p>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <form class="thing-form">
+        <label>Add new task</label>
+        <p class="input-group">
+          <input type="text" class="form-control" placeholder="Task Name" ng-model="$ctrl.newTask.name">
+          <input type="text" class="form-control" placeholder="Description" ng-model="$ctrl.newTask.description">
+          <select class="form-control" ng-model="$ctrl.newTask.project">
+            <option ng-repeat="option in $ctrl.projects"
+                    value="{{option._id}}">{{option.name}}</option>
+          </select>
+        <div class="row">
+        <span class="col-md-6">
+          <button type="submit" class="btn btn-success" ng-click="$ctrl.startTask(true)">
+            Start Task
+          </button>
+        </span>
+        <span class="col-md-6">
+          <button type="submit" class="btn btn-primary" ng-click="$ctrl.startTask(false)">
+            Create Task
+          </button>
+        </span>
+        </div>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h1 class="page-header">Tasks:</h1>
+      <ul class="nav nav-tabs nav-stacked col-md-6"
+          ng-repeat="task in $ctrl.tasks">
+        <li>
+          <div uib-tooltip="Description: {{task.description}}">
+            <button ng-if="task.isStared" type="button" class="close" ng-click="$ctrl.stopTime(task._id)">
+              <i class="fa fa-stop" aria-hidden="true"></i>
+            </button>
+            <button ng-if="!task.isStared" type="button" class="close" ng-click="$ctrl.startTime(task._id)">
+              <i class="fa fa-play" aria-hidden="true"></i>
+            </button>
+            <div>
+              <strong>Name:</strong> {{task.name}}
+              <br>
+              <strong>Time: </strong><br>
+              <span ng-repeat="time in task.time track by $index">
+                {{$index+1}}: {{time.total}}
+                <br>
+              </span>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
